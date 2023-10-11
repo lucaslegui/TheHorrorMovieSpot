@@ -67,7 +67,7 @@ function fetchDataAndDisplay(url, displayFunction, type) {
         .then(data => {
             const items = data.results;
             displayFunction(items, type);
-            //   console.log(data);
+            //    console.log(data);
         })
 
         .catch(error => {
@@ -201,8 +201,11 @@ function showModal(itemId, items, type) {
     //constructor boton favoritos
     const favoritosBtn = document.createElement('button');
     favoritosBtn.textContent = 'Agregar a Favoritos';
-    favoritosBtn.classList.add('btn', 'btn-primary');
+    favoritosBtn.classList.add('btn', 'btn-danger');
     favoritosBtn.addEventListener('click', () => AgregarAFavoritos(item));
+
+    const saltoDeLinea = document.createElement('br');
+    modalReview.appendChild(saltoDeLinea);
 
     modalReview.appendChild(favoritosBtn);
 

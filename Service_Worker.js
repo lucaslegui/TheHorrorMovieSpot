@@ -18,7 +18,7 @@ const CACHE_NAME = 'TMHS',
 
   self.addEventListener('install', (event) => {
     console.log('sw instalado');
-    caches.open(cacheName)
+    caches.open(CACHE_NAME)
     .then(cache => {
         cache.addAll(urlsToCache)
     })

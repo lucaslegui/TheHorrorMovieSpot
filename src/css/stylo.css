@@ -125,6 +125,10 @@ footer a {
   color: var(--color-4);
 }
 
+footer p {
+  color: var(--color-4);
+}
+
 footer a:hover {
   color:var(--color-6);  
   text-decoration: none;
