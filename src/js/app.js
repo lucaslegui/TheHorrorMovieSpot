@@ -43,11 +43,8 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
-
-
 /////////////////////////////////API/////////////////////////////////////
+
 const API_KEY = 'af52bc36eb86e5bf423dc0874dfdcfd9';
 const GENRE_ID_HORROR = 27;
 const GENRE_ID_SCIFI_FANTASY = 10765;
@@ -201,7 +198,55 @@ function showModal(itemId, items, type) {
 
     modalTitle.textContent = item.title || item.name || 'Unknown Title';
     modalReview.textContent = item.overview || `No hay review disponible para este ${type === 'movie' ? 'película' : 'serie'}.`;
+    //constructor boton favoritos
+    const favoritosBtn = document.createElement('button');
+    favoritosBtn.textContent = 'Agregar a Favoritos';
+    favoritosBtn.classList.add('btn', 'btn-primary');
+    favoritosBtn.addEventListener('click', () => AgregarAFavoritos(item));
+
+    modalReview.appendChild(favoritosBtn);
 
     const modal = new bootstrap.Modal(document.getElementById(`${type}Modal`));
     modal.show();
 }
+
+
+// interacciones
+
+// agregar a favoritos
+function AgregarAFavoritos(item) {
+    let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    if (favoritos.some(fav => fav.id === item.id)) {
+        alert('Ya has agregado este ítem a favoritos!');
+        return;
+    }
+    favoritos.push(item);
+    localStorage.setItem('favoritos', JSON.stringify(favoritos));
+    alert('¡Ítem agregado a favoritos!');
+}
+
+// mostrar favoritos
+document.getElementById('showFavoritos').addEventListener('click', function () {
+    const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+    let htmlContent = '';
+
+    if (favoritos.length === 0) {
+        htmlContent = '<p>No tienes ítems en tus favoritos.</p>';
+    } else {
+        favoritos.forEach(item => {
+            htmlContent += `
+                <div class="favorite-item">
+                    <h4>${item.title || item.name}</h4>
+                    <p>${item.overview}</p>
+                </div>
+            `;
+        });
+    }
+
+    const modalBody = document.getElementById('favoritosModalBody');
+    modalBody.innerHTML = htmlContent;
+
+    const modal = new bootstrap.Modal(document.getElementById('favoritosModal'));
+    modal.show();
+});
+
