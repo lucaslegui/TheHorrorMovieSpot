@@ -5,22 +5,36 @@
   box-sizing: border-box;
 }
 
+:root {
+  --color-1: #000000;
+  --color-2: #8B0000;
+  --color-3: #2F4F4F;
+  --color-4: #F8F8FF;
+  --color-5: #3CB371;
+  --color-6: #4B0082;
+}
+
+
 body{
-  background-color: #8a8a8a;
+  background-color: var(--color-1);
+}
+
+h3{
+  color: var(--color-5);
 }
 
 .download-link {
-    text-decoration: none; /* Elimina el subrayado del enlace */
-    color: #ff0000; /* Color de texto del enlace */
-    border: 2px solid #000; /* Borde del enlace */
-    padding: 10px 20px; /* Espaciado interno del enlace */
-    display: inline-block; /* Permite que el enlace tome el padding y otros estilos de bloque */
-    transition: background-color 0.3s, color 0.3s; /* Animación suave al cambiar el color de fondo y el color del texto */
+    text-decoration: none;
+    color: var(--color-2);
+    border: 2px solid #000;
+    padding: 10px 20px;
+    display: inline-block; 
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .download-link:hover {
-    background-color: #000; /* Cambia el color de fondo al pasar el cursor sobre el enlace */
-    color: #fff; /* Cambia el color del texto al pasar el cursor sobre el enlace */
+    background-color: #000; 
+    color: #fff;
 }
 
 .hero {

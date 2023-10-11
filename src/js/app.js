@@ -14,10 +14,29 @@ fetch(URL)
 
 //funcion para mostrar las peliculas
 
+document.getElementById('sortOrder').addEventListener('change', function() {
+    const moviesContainer = document.getElementById('recommended-movies');
+    let movies = JSON.parse(moviesContainer.getAttribute('data-movies')); // Obtenemos las peliculas almacenadas en el elemento como un atributo.
+    const order = this.value; // Obtener el orden seleccionado
+
+    // Ordenar las películas
+    movies.sort((a, b) => {
+        if(order === 'desc') {
+            return b.vote_average - a.vote_average;
+        } else {
+            return a.vote_average - b.vote_average;
+        }
+    });
+
+    displayMovies(movies); // Mostrar las películas ordenadas
+});
+
+
 function displayMovies(movies) {
     const moviesContainer = document.getElementById('recommended-movies');
+    moviesContainer.setAttribute('data-movies', JSON.stringify(movies));
     let moviesHTML = '';
-
+    
     movies.forEach(movie => {
         moviesHTML += `
         <div class="card" data-movie-id="${movie.id}">
@@ -43,7 +62,7 @@ function displayMovies(movies) {
     });
 }
 
-
+//mostrar modal de pelicula
 function showMovieReview(movieId, movies) {
     //  buscar pelicula por id
     const movie = movies.find(m => m.id == movieId);
