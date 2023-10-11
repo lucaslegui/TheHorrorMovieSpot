@@ -52,46 +52,86 @@
                             <a class="nav-link" href="#">Series</a>
                         </li>
                         <li class="nav-item flex-grow-1 text-center">
-                            <a class="nav-link download-link" href="#">BAJATE NUESTRA APP <span><i class="fa-solid fa-cloud-arrow-down"></i></span></a>
+                            <a class="nav-link download-link" href="#">BAJATE NUESTRA APP <span><i
+                                        class="fa-solid fa-cloud-arrow-down"></i></span></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-<main class="container">
-    <section class="mt-5" id="recomendados">
-        <h3 class="text-center">Peliculas recomendadas del Mes</h3>
-        <hr>
-        <!-- filtro para calificacion -->
-        <label for="sortOrder" class="text-white">Ordenar películas por:</label>
-        <select id="sortOrder">
-            <option value="desc">Mayor a menor calificación</option>
-            <option value="asc">Menor a mayor calificación</option>
-        </select>
-        
-        <div id="recommended-movies">
-        </div>
-        <!-- Ventana Modal de Bootstrap -->
-    <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="movieModalLabel">Review de la película</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p id="movieReview">aca viene el riview</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  
-</main>
+    <main class="container">
+        <section class="mt-5" id="recomendados">
+            <article id="pelicuas">
+                <h3 class="text-center">Peliculas recomendadas del Mes</h3>
+                <hr>
+                <!-- filtro para calificacion -->
+                <label for="sortOrder" class="text-white">Ordenar películas por:</label>
+                <select id="sortOrder">
+                    <option value="desc">Mayor a menor calificación</option>
+                    <option value="asc">Menor a mayor calificación</option>
+                </select>
+
+                <div id="recommended-movies">
+                </div>
+                <!-- Ventana Modal de Bootstrap -->
+                <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="movieModalLabel">Review de la película</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="movieReview">aca viene el riview</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article id="series">
+                <h3 class="text-center">Series recomendadas del Mes</h3>
+                <hr>
+                <!-- filtro para calificacion -->
+                <label for="seriessortOrder" class="text-white">Ordenar series por:</label>
+                <select id="seriessortOrder">
+                    <option value="desc">Mayor a menor calificación</option>
+                    <option value="asc">Menor a mayor calificación</option>
+                </select>
+
+                <div id="recommended-series">
+                </div>
+
+
+                <!-- Ventana Modal de Bootstrap -->
+                <div class="modal fade" id="seriesModal" tabindex="-1" aria-labelledby="seriesModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="seriesModalLabel">Review de la serie</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="seriesReview">aca viene el riview</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+            
+    </main>
 
     <!-- scrips -->
     <script src="js/bootstrap.min.js"></script>
