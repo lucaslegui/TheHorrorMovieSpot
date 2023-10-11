@@ -29,8 +29,7 @@ function fetchDataAndDisplay(url, displayFunction, type) {
 }
 
 
-
-// Evento para ordenar películas
+// listener para filtrar películas
 document.getElementById('sortOrder').addEventListener('change', function () {
     const container = document.getElementById('recommended-movies');
     let items = JSON.parse(container.getAttribute('data-items'));
@@ -83,13 +82,15 @@ fetchDataAndDisplay(MOVIE_URL, displayMovies, 'movie');
 function displaySeries(series) {
     const seriesContainer = document.getElementById('recommended-series');
     let seriesHTML = '';
+    seriesContainer.setAttribute('data-items', JSON.stringify(series));
 
     series.forEach(serie => {
         seriesHTML += `
-        <div class="card" data-series-id="${serie.id}">
+        <div class="series-card card" data-series-id="${serie.id}">
         <div class="card-inner">
           <img src="https://image.tmdb.org/t/p/w500${serie.poster_path}" alt="${serie.name}">
           <h4>${serie.name}</h4>
+          <p>Calificación:<i class="fa-solid fa-star fa-beat" style="color: #f7ef02;"></i> ${serie.vote_average}/10</p>
         </div>
         </div>
       `;
@@ -97,7 +98,7 @@ function displaySeries(series) {
 
     seriesContainer.innerHTML = seriesHTML;
     // Evento al hacer clic en la tarjeta para mostrar detalles de la serie
-    const seriesCards = document.querySelectorAll('.card');
+    const seriesCards = document.querySelectorAll('.series-card');
     seriesCards.forEach(card => {
         card.addEventListener('click', function () {
             const seriesId = card.getAttribute('data-series-id');
@@ -117,6 +118,21 @@ function showSeriesReview(seriesId, series) {
     showModal(seriesId, series, 'series');
 }
 
+document.getElementById('seriesSortOrder').addEventListener('change', function () {
+    const seriesContainer = document.getElementById('recommended-series');
+    let seriesItems = JSON.parse(seriesContainer.getAttribute('data-items'));
+    const order = this.value;
+
+    seriesItems.sort((a, b) => {
+        if (order === 'desc') {
+            return b.vote_average - a.vote_average;
+        } else {
+            return a.vote_average - b.vote_average;
+        }
+    });
+
+    displaySeries(seriesItems);
+});
 
 
 // Obtener y mostrar series
