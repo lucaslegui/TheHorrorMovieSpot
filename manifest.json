@@ -3,10 +3,10 @@
     "background_color": "#8B0000",
     "display": "standalone",
     "scope": "./",
-    "start_url": "./src/index.html",
+    "start_url": "./index.html",
     "name": "The Horror Movie Spot",
-    "short:name": "THMS",
-    "desciption": "Peliculas de terror",
+    "short_name": "THMS",
+    "description": "Peliculas de terror",
     "icons": [
         {
             "src": "./src/icons/icon-72x72.png",

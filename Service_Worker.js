@@ -8,7 +8,8 @@ const CACHE_NAME = 'TMHS',
     './src/css/bootstrap.min.css',
     './src/css/stylo.css',
     './src/assets/hero.webm',
-    './src/assets/hero.jpeg',
+    './src/assets/hero.webp',
+    './src/webfonts/',
     './src/js/app.js',
     './src/js/all.min.js',
     './src/js/bootstrap.min.js',
@@ -39,7 +40,7 @@ self.addEventListener('fetch', event => {
                     return res;
                 }
                 let responseToCache = res.clone();
-                caches.open(cacheName)
+                caches.open(CACHE_NAME)
                 .then(cache => {
                     cache.put(requestToCache, responseToCache)
                 })
