@@ -1,5 +1,14 @@
-//instalar app
+//loading page...
 
+window.onload = function() {
+    setTimeout(function() {
+        document.getElementById('loader').style.display = 'none';
+    }, 3000);
+};
+
+
+
+//instalar app
 window.addEventListener('DOMContentLoaded', () => {
     //registrar el ayuwokin
     if('serviceWorker' in navigator){
