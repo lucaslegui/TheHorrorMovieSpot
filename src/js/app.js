@@ -50,6 +50,25 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+        console.log("notificaciones permitidas");
+    } else {
+        console.log("noti denegada");
+    }
+});
+
+document.getElementById('permitirPush').addEventListener('click', () => {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            console.log("Notificación permitida");
+            // Aquí puedes agregar lógica adicional si es necesario
+        } else {
+            console.log("Notificación denegada");
+        }
+    });
+});
+
 
 /////////////////////////////////API/////////////////////////////////////
 
@@ -299,7 +318,6 @@ function showModal(itemId, items, type) {
         console.error('Elementos del modal no encontrados');
     }
 }
-
 
 
 // interacciones

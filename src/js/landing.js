@@ -29,47 +29,16 @@ gsap.to("#text",{
     y:500
 })
 
+gsap.registerPlugin(ScrollTrigger);
 
-
-//instalar app
-window.addEventListener('DOMContentLoaded', () => {
-    //registrar el ayuwokin
-    if('serviceWorker' in navigator){
-        navigator.serviceWorker
-        .register('Service_Worker.js')
-        .then(respuesta => console.log('Sw registrado correctamente'))
-        .catch(error => console.log('sw no se pudo registrar'))
-    }
-    
-    let eventInstall;
-    let btnInstall = document.querySelector(".btnInstall");
-
-    let InstallApp = () => {
-        if(eventInstall){
-            eventInstall.prompt();
-            eventInstall.userChoice
-            .then(res => {
-                if(res.outcome === "accepted"){
-                    console.log("el user acepto instalar mi super app");
-                    btnInstall.style.display = "none";
-                }else{
-                     alert("como que no?");
-                }
-            })
-        }
-    }
-    
-    window.addEventListener("beforeinstallprompt", (e) => {
-        
-        e.preventDefault();
-        eventInstall = e;
-        showInstallButton();
-    })
-
-    let showInstallButton = () => {
-        if(btnInstall != undefined){
-            btnInstall.style.display = "inline-block";
-            btnInstall.addEventListener("click", InstallApp)
-        }
-    }
+gsap.from(".sec", {
+  duration: 5,
+  y: 50,
+  opacity: 0,
+  ease: "power1.out",
+  scrollTrigger: {
+    trigger: ".sec",
+    start: "top 80%",
+    toggleActions: "play none none none" 
+  }
 });
