@@ -60,6 +60,8 @@ const GENRE_ID_SCIFI_FANTASY = 10765;
 // URLs para películas y series
 const MOVIE_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${GENRE_ID_HORROR}&sort_by=popularity.desc&language=es-MX`;
 const TV_URL = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${GENRE_ID_SCIFI_FANTASY}&sort_by=popularity.desc&language=es-MX`;
+// URL para proximos estrenos
+const UPCOMING_MOVIE_URL = `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=es-MX`;
 
 const options = {
     method: 'GET',
@@ -82,6 +84,7 @@ function fetchDataAndDisplay(url, displayFunction, type) {
         .catch(error => {
             console.error(`Error al obtener ${type === 'movie' ? 'las películas' : 'las series'}:`, error);
         });
+
 }
 
 
@@ -189,6 +192,29 @@ document.getElementById('seriesSortOrder').addEventListener('change', function (
 
     displaySeries(seriesItems);
 });
+
+
+// Mostrar próximos estrenos
+function displayUpcomingMovies(movies) {
+    const upcomingMoviesContainer = document.getElementById('upcoming-movies');
+    let upcomingMoviesHTML = '';
+
+    movies.forEach(movie => {
+        // Puedes filtrar por género de terror aquí si es necesario
+        upcomingMoviesHTML += `
+            <div class="upcoming-movie-card card" data-id="${movie.id}">
+                <div class="card-inner">
+                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+                    <h4>${movie.title}</h4>
+                    <p>Fecha de estreno: ${movie.release_date}</p>
+                </div>
+            </div>
+        `;
+    });
+
+    upcomingMoviesContainer.innerHTML = upcomingMoviesHTML;
+}
+
 
 
 // Obtener y mostrar series
