@@ -1,30 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css -->
     <link rel="stylesheet" href="src/css/landing.css">
+    <!-- favicon -->
+    <link rel="icon" href="./src/icons/icon.png" type="image/x-icon">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="./src/css/all.min.css">
     <title>THMS | Landing</title>
 </head>
+
 <body>
     <div id="landig-page"></div>
 
     <main>
         <section>
-            <img src="src/assets/img/landing/fondo2.jpg" alt="fondo bosque">
-            <h2 id="text">THE HORROR MOVIE SPOT</h2>
-            <img src="src/assets/img/landing/valak.png" alt="Valak" id="valak" class="personaje">
+            <img src="src/assets/img/landing/fondo2.jpg" alt="fondo bosque" id="bg">
+            <h1 id="text">THE HORROR MOVIE <span class="spot">SPOT</span></h1>
+            <img src="src/assets/img/landing/valak.png" alt="Valak" class="personaje" id="valak">
             <img src="src/assets/img/landing/rayo1.png" alt="rayo" id="rayo1">
             <img src="src/assets/img/landing/rayo2.png" alt="rayo" id="rayo2">
         </section>
         <div class="sec">
             <div class="content">
-                <h2>Titulo de la pagina</h2>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum delectus commodi quam consequatur maxime sapiente incidunt quaerat nam eos iure, consectetur hic sunt, quae esse quas eius enim amet rerum. <br><br>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam maxime blanditiis veritatis omnis nesciunt veniam itaque, voluptatum, voluptate, consectetur iusto dolorum eos placeat rerum quos saepe ad? Quaerat, cupiditate consequatur.</p>
+                <h2>¿Qué es THMS?</h2>
+                <p>Sumérgete en el escalofriante mundo del género de terror con "The Horror Movie Spot", una base de
+                    datos integral dedicada exclusivamente a películas y series de terror. Nuestro sitio, impulsado por
+                    una API avanzada, te frece una experiencia inmersiva y dinámica para explorar el vasto universo del
+                    terror cinematográfico.</p>
+            </div>
+            <div class="content">
+                <h2>Características Destacadas:</h2>
+                <ul>
+                    <li><span class="icon-text">
+                            <i class="fa-solid fa-ghost" style="color: #57fa00;"></i>
+                            <p>Catálogo Extenso: Navega por una amplia selección de títulos de terror, desde clásicos
+                                atemporales hasta los últimos lanzamientos. Cada película y serie viene con información
+                                detallada, incluyendo fechas de publicación, sinopsis, y mucho más</p>
+                        </span>
+                    </li>
+                    <li><span class="icon-text">
+                            <i class="fa-solid fa-ghost" style="color: #57fa00;"></i>
+                            <p>Reseñas y Valoraciones: Infórmate antes de mirar con nuestras reseñas actualizadas y
+                                opiniones de usuarios. Participa en nuestra comunidad dejando tus propias valoraciones y
+                                comentarios.</p>
+                        </span>
+
+                    </li>
+                    <li><span class="icon-text">
+                            <i class="fa-solid fa-ghost" style="color: #57fa00;"></i>
+                            <p>Favoritos a un Clic: ¿Encontraste una película que te cautiva? Márcala como favorita para
+                                un
+                                fácil acceso en el futuro.</p>
+                        </span>
+                    </li>
+                    <li><span class="icon-text">
+                            <i class="fa-solid fa-ghost" style="color: #57fa00;"></i>
+                            <p>Alertas Personalizadas: Mantente al día con las últimas novedades en el mundo del terror.
+                                Activa las alertas para recibir notificaciones sobre nuevos lanzamientos y
+                                actualizaciones
+                                importantes.</p>
+                        </span>
+                    </li>
+                    <li><span class="icon-text">
+                            <i class="fa-solid fa-ghost" style="color: #57fa00;"></i>
+                            <p>PWA - Una Experiencia Sin Interrupciones: Gracias a nuestra tecnología de Progresive Web
+                                App
+                                (PWA), puedes instalar "The Horror Movie Spot" en tu dispositivo para una experiencia de
+                                usuario más fluida y rápida, accesible incluso sin conexión a Internet.</p>
+                        </span>
+                    </li>
+                </ul>
             </div>
         </div>
-
     </main>
+
+    
+            <h2>DESCARGA LA APP</h2>
+            <p>Instala "The Horror Movie Spot" en tu dispositivo para una experiencia de usuario más fluida y
+                rápida,
+                accesible incluso sin conexión a Internet.</p>
+    
+    
+            <div class="download-section">
+    
+                <div class="image-container">
+                    <a href="./index.html" target="_blank"><img src="src/assets/img/landing/winandmac.png"
+                            alt="Imagen de Descarga"></a>
+                </div>
+                <div class="text-container">
+                    <a href="./index.html" target="_blank" class="download-link">Ingresa a la Página para descargar</a>
+                </div>
+            </div>
+    <footer id="pata">
+
+
+
+
+    </footer>
+
+    <!-- gsap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+        integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+        integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- el mio :3 -->
+    <script src="src/js/landing.js"></script>
 </body>
+
 </html>

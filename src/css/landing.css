@@ -18,7 +18,7 @@
 }
 
 body {
-    background-color: var(--color-1);
+    /* background-color: var(--color-1); */
 }
 
 main {
@@ -44,7 +44,7 @@ main section:before {
     width: 100%;
     height: 200px;
     background: linear-gradient(to top, #000522, transparent);
-    z-index: 1;
+    z-index: 3;
 }
 
 main section img {
@@ -62,6 +62,9 @@ main section .personaje {
     top: 40%;
     -o-object-fit: contain;
     object-fit: contain;
+    z-index: 1;
+    /* blur */
+    filter: blur(1px);
 }
 
 main section #text {
@@ -91,4 +94,107 @@ main .sec .content h2 {
 main .sec .content p {
     font-size: 1.2em;
     color: #f5f7f8;
+}
+
+main #rayo1{
+    /* transparencia */
+    opacity: 0.5;
+}
+main #rayo2{
+    /* transparencia */
+    opacity: 0.5;
+}
+
+.content {
+    margin-bottom: 30px;
+}
+
+.content ul li {
+    margin-bottom: 20px;
+}
+.icon-text {
+    display: flex;
+}
+
+.icon-text i {
+    margin-right: 10px;
+}
+
+.icon-text p {
+    margin: 0;
+}
+
+/* seccion descarga */
+
+.download-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+}
+
+.text-container {
+    margin-left: 20px;
+}
+
+.download-link {
+    font-size: 20px;
+    text-decoration: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* #pata backgroud image */
+#pata {
+    background-image: url(src/assets/img/landing/pie.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    z-index: 100;
+}
+
+#foot {
+    width: 100%;
+   
+} 
+
+
+/* Estilo para pantallas grandes */
+@media screen and (min-width: 923px) {
+    main section #text {
+        text-align: end;
+        position: relative;
+        color: #fff;
+        font-size: 10vw;
+    }
+}
+
+
+
+/* dispositivos moviles */
+@media screen and (max-width: 768px) {
+    main section #text {
+        text-align: center;
+        position: relative;
+        color: #fff;
+        font-size: 10vw;
+    }
+    main .sec {
+        padding: 50px;
+    }
+    main .sec .content h2 {
+        font-size: 2em;
+    }
+    main .sec .content p {
+        font-size: 1em;
+    }
 }
