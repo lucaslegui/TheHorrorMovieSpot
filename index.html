@@ -69,16 +69,18 @@
         </nav>
     </header>
     <main class="container">
-        <section class="mt-5" id="recomendados">
+        <section id="recomendados">
             <article id="pelicuas">
-                <h3 class="text-center">Peliculas recomendadas del Mes</h3>
+                <h3 class="text-center">Películas recomendadas del mes</h3>
                 <hr>
-                <!-- filtro para calificacion -->
-                <label for="sortOrder" class="text-white">Ordenar películas por:</label>
-                <select id="sortOrder">
-                    <option value="desc">Mayor a menor calificación</option>
-                    <option value="asc">Menor a mayor calificación</option>
-                </select>
+                <!-- filtro para calificación -->
+                <div class="mb-3">
+                    <label for="sortOrder" class="form-label text-white">Ordenar películas por:</label>
+                    <select class="form-select bg-dark text-white" id="sortOrder">
+                        <option value="desc">Mayor a menor calificación</option>
+                        <option value="asc">Menor a mayor calificación</option>
+                    </select>
+                </div>
 
                 <div id="recommended-movies">
                 </div>
@@ -107,26 +109,28 @@
                 <h3 class="text-center">Estrenos</h3>
                 <hr>
                 <!-- filtro para calificacion -->
-                <label for="sortOrder" class="text-white">Ordenar películas por:</label>
-                <select id="sortOrder">
-                    <option value="desc">Mayor a menor calificación</option>
-                    <option value="asc">Menor a mayor calificación</option>
-                </select>
-
+                <div class="mb-3">
+                    <label for="estrenosSortOrder" class="form-label text-white">Ordenar películas por:</label>
+                    <select id="estrenosSortOrder" class="form-select bg-dark text-white">
+                        <option value="desc">Mayor a menor calificación</option>
+                        <option value="asc">Menor a mayor calificación</option>
+                    </select>
+                </div>
+                
                 <div id="upcoming-movies">
                 </div>
                 <!-- Ventana Modal de Bootstrap -->
-                <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="movieModalLabel"
+                <div class="modal fade" id="upcomingMovieModal" tabindex="-1" aria-labelledby="upcomingMovieModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="movieModalLabel">Review de la película</h5>
+                                <h5 class="modal-title" id="upcomingMovieModalLabel">Título del Estreno</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p id="movieReview">aca viene el riview</p>
+                                <p id="upcomingMovieReview">Reseña del estreno</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -136,16 +140,18 @@
                 </div>
             </article>
 
-            <article class="mt-5" id="series">
-                <h3 class="text-center">Series recomendadas del Mes</h3>
+            <article id="series">
+                <h3 class="text-center">Series recomendadas del mes</h3>
                 <hr>
                 <!-- filtro para calificacion -->
-                <label for="seriesSortOrder" class="text-white">Ordenar series por:</label>
-                <select id="seriesSortOrder">
-                    <option value="desc">Mayor a menor calificación</option>
-                    <option value="asc">Menor a mayor calificación</option>
-                </select>
-
+                <div class="mb-3">
+                    <label for="seriesSortOrder" class="text-white" class="form-label text-white">Ordenar series por:</label>
+                    <select id="seriesSortOrder" class="form-select bg-dark text-white">
+                        <option value="desc">Mayor a menor calificación</option>
+                        <option value="asc">Menor a mayor calificación</option>
+                    </select>
+                </div>
+                
                 <div id="recommended-series">
                 </div>
 
