@@ -62,7 +62,7 @@ document.getElementById('permitirPush').addEventListener('click', () => {
     Notification.requestPermission().then(permission => {
         if (permission === "granted") {
             console.log("Notificación permitida");
-            // Aquí puedes agregar lógica adicional si es necesario
+
         } else {
             console.log("Notificación denegada");
         }
@@ -272,32 +272,6 @@ document.getElementById('seriesSortOrder').addEventListener('change', function (
     displaySeries(seriesItems);
 });
 
-
-// Mostrar próximos estrenos
-function displayUpcomingMovies(movies) {
-    const upcomingMoviesContainer = document.getElementById('upcoming-movies');
-    let upcomingMoviesHTML = '';
-
-    movies.forEach(movie => {
-        // Puedes filtrar por género de terror aquí si es necesario
-        upcomingMoviesHTML += `
-            <div class="upcoming-movie-card card" data-id="${movie.id}">
-                <div class="card-inner">
-                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-                    <h4>${movie.title}</h4>
-                    <p>Fecha de estreno: ${movie.release_date}</p>
-                </div>
-            </div>
-        `;
-    });
-
-    upcomingMoviesContainer.innerHTML = upcomingMoviesHTML;
-}
-
-
-
-// Obtener y mostrar series
-fetchDataAndDisplay(TV_URL, displaySeries, 'tv');
 
 //mostrar modal
 
