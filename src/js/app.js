@@ -200,7 +200,6 @@ function displayUpcomingMovies(movies) {
     let upcomingMoviesHTML = '';
 
     movies.forEach(movie => {
-        // Puedes filtrar por género de terror aquí si es necesario
         upcomingMoviesHTML += `
             <div class="upcoming-movie-card card" data-id="${movie.id}">
                 <div class="card-inner">
@@ -287,4 +286,3 @@ document.getElementById('showFavoritos').addEventListener('click', function () {
     const modal = new bootstrap.Modal(document.getElementById('favoritosModal'));
     modal.show();
 });
-
