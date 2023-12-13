@@ -1,58 +1,73 @@
-;
-//asignar un nombre y versión al cache
+// Asignar un nombre y versión al cache
 const CACHE_NAME = 'TMHS',
-  urlsToCache = [
-    './',
-    './index.html',
-    './src/css/all.min.css',
-    './src/css/bootstrap.min.css',
-    './src/css/stylo.css',
-    './src/assets/hero.webm',
-    './src/assets/hero.webp',
-    './src/webfonts/',
-    './src/js/app.js',
-    './src/js/all.min.js',
-    './src/js/bootstrap.min.js',
-    './src/icons/icon-512x512.png',
-    './src/icons/icon-72x72.png'
-  ]
+    urlsToCache = [
+        './',
+        './index.html',
+        './offline.html',
+        './src/css/all.min.css',
+        './src/css/bootstrap.min.css',
+        './src/css/stylo.css',
+        './src/assets/hero.webm',
+        './src/assets/hero.webp',
+        './src/js/app.js',
+        './src/js/all.min.js',
+        './src/js/bootstrap.min.js',
+        './src/icons/icon-152x152.png',
+        './src/icons/icon-144x144.png',
+        './src/icons/icon-128x128.png',
+        './src/icons/icon-512x512.png',
+        './src/icons/icon-72x72.png'
+    ];
 
-  self.addEventListener('install', (event) => {
-    console.log('sw instalado');
-    caches.open(CACHE_NAME)
-    .then(cache => {
-        cache.addAll(urlsToCache)
-    })
-})
+self.addEventListener('install', (event) => {
+    console.log('SW instalado');
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(cache => {
+                return cache.addAll(urlsToCache);
+            })
+            .then(() => self.skipWaiting())
+    );
+});
 
 self.addEventListener('fetch', event => {
-    console.log(event.request)
     event.respondWith(
         caches.match(event.request)
-        .then(res => {
-            if(res){
-                return res;
-            }
-            let requestToCache = event.request.clone();
-            return fetch(requestToCache)
             .then(res => {
-                if(!res || res.status !== 200){
+                if (res) {
                     return res;
                 }
-                let responseToCache = res.clone();
-                caches.open(CACHE_NAME)
-                .then(cache => {
-                    cache.put(requestToCache, responseToCache)
-                })
-                return res;
+                return fetch(event.request).catch(() => {
+                    // Notificacion de estar offline
+                    self.registration.showNotification("Sin conexión", {
+                        body: "Parece que estás offline. ¡Revisa tu conexión a internet!",
+                        icon: './src/icons/icon-512x512.png'
+                    });
+                   return caches.match('./offline.html');
+                });
             })
-        })
-        .catch(() => {
-            console.log("error en el match del cache")
-        })
-    )
-})
+    );
+});
 
 self.addEventListener('activate', (event) => {
-    console.log('sw activado')
-})
+    console.log('SW activado');
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames.map(cache => {
+                    if (cache !== CACHE_NAME) {
+                        return caches.delete(cache);
+                    }
+                })
+            );
+        }).then(() => {
+            return self.clients.claim();
+        }).then(() => {
+            // Notificacion de nuevos contenidos
+            self.registration.showNotification("Notificación local", {
+                body: "¡Nuevos contenidos de terror disponibles!",
+                icon: './src/icons/icon-512x512.png'
+            });
+        })
+    );
+});

@@ -1,54 +1,72 @@
 //loading page...
 
-window.onload = function() {
-    setTimeout(function() {
+window.onload = function () {
+    setTimeout(function () {
         document.getElementById('loader').style.display = 'none';
     }, 3000);
 };
 
-
-
 //instalar app
+
 window.addEventListener('DOMContentLoaded', () => {
     //registrar el ayuwokin
-    if('serviceWorker' in navigator){
+    if ('serviceWorker' in navigator) {
         navigator.serviceWorker
-        .register('Service_Worker.js')
-        .then(respuesta => console.log('Sw registrado correctamente'))
-        .catch(error => console.log('sw no se pudo registrar'))
+            .register('Service_Worker.js')
+            .then(respuesta => console.log('Sw registrado correctamente'))
+            .catch(error => console.log('sw no se pudo registrar'))
     }
-    
+
     let eventInstall;
     let btnInstall = document.querySelector(".btnInstall");
 
     let InstallApp = () => {
-        if(eventInstall){
+        if (eventInstall) {
             eventInstall.prompt();
             eventInstall.userChoice
-            .then(res => {
-                if(res.outcome === "accepted"){
-                    console.log("el user acepto instalar mi super app");
-                    btnInstall.style.display = "none";
-                }else{
-                     alert("como que no?");
-                }
-            })
+                .then(res => {
+                    if (res.outcome === "accepted") {
+                        console.log("el user acepto instalar mi super app");
+                        btnInstall.style.display = "none";
+                    } else {
+                        alert("como que no?");
+                    }
+                })
         }
     }
-    
+
     window.addEventListener("beforeinstallprompt", (e) => {
-        
+
         e.preventDefault();
         eventInstall = e;
         showInstallButton();
     })
 
     let showInstallButton = () => {
-        if(btnInstall != undefined){
+        if (btnInstall != undefined) {
             btnInstall.style.display = "inline-block";
             btnInstall.addEventListener("click", InstallApp)
         }
     }
+});
+
+Notification.requestPermission().then(permission => {
+    if (permission === "granted") {
+        console.log("notificaciones permitidas");
+    } else {
+        console.log("noti denegada");
+    }
+});
+
+document.getElementById('permitirPush').addEventListener('click', () => {
+    Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+            console.log("Notificación permitida");
+            // Aquí puedes agregar lógica adicional si es necesario
+        } else {
+            console.log("Notificación denegada");
+        }
+    });
 });
 
 
@@ -76,34 +94,24 @@ function fetchDataAndDisplay(url, displayFunction, type) {
     fetch(url, options)
         .then(response => response.json())
         .then(data => {
-            const items = data.results;
-            displayFunction(items, type);
-            //    console.log(data);
-        })
+            let items = data.results;
 
+            // Filtrar por género de terror si es un estreno
+            if (type === 'upcoming') {
+                items = items.filter(item => item.genre_ids.includes(GENRE_ID_HORROR));
+            }
+
+            displayFunction(items, type);
+        })
         .catch(error => {
             console.error(`Error al obtener ${type === 'movie' ? 'las películas' : 'las series'}:`, error);
         });
-
 }
 
 
-// listener para filtrar películas
-document.getElementById('sortOrder').addEventListener('change', function () {
-    const container = document.getElementById('recommended-movies');
-    let items = JSON.parse(container.getAttribute('data-items'));
-    const order = this.value;
 
-    items.sort((a, b) => {
-        if (order === 'desc') {
-            return b.vote_average - a.vote_average;
-        } else {
-            return a.vote_average - b.vote_average;
-        }
-    });
-
-    displayMovies(items, 'movie');
-});
+// Obtener datos de peliculas
+fetchDataAndDisplay(MOVIE_URL, displayMovies, 'movie');
 
 // Mostrar películas
 function displayMovies(items, type) {
@@ -134,8 +142,77 @@ function displayMovies(items, type) {
     });
 }
 
-// Obtener y mostrar películas
-fetchDataAndDisplay(MOVIE_URL, displayMovies, 'movie');
+// listener para filtrar películas
+document.getElementById('sortOrder').addEventListener('change', function () {
+    const container = document.getElementById('recommended-movies');
+    let items = JSON.parse(container.getAttribute('data-items'));
+    const order = this.value;
+
+    items.sort((a, b) => {
+        if (order === 'desc') {
+            return b.vote_average - a.vote_average;
+        } else {
+            return a.vote_average - b.vote_average;
+        }
+    });
+
+    displayMovies(items, 'movie');
+});
+
+
+// Obtener datos de estrenos
+fetchDataAndDisplay(UPCOMING_MOVIE_URL, displayUpcomingMovies, 'upcoming');
+
+// Mostrar estrenos
+function displayUpcomingMovies(estreno) {
+    const upcomingMoviesContainer = document.getElementById('upcoming-movies');
+    let upcomingMoviesHTML = '';
+    upcomingMoviesContainer.setAttribute('data-items', JSON.stringify(estreno));
+
+    estreno.forEach(estreno => {
+        upcomingMoviesHTML += `
+            <div class="upcoming-movie-card card" data-id="${estreno.id}">
+                <div class="card-inner">
+                    <img src="https://image.tmdb.org/t/p/w500${estreno.poster_path}" alt="${estreno.title}">
+                    <h4>${estreno.title}</h4>
+                    <p>Fecha de estreno: ${estreno.release_date}</p>
+                    <p>Calificación:<i class="fa-solid fa-star fa-beat" style="color: #f7ef02;"></i> ${estreno.vote_average}/10</p>
+                </div>
+            </div>
+        `;
+    });
+
+    upcomingMoviesContainer.innerHTML = upcomingMoviesHTML;
+
+    const upcomingMovieCards = upcomingMoviesContainer.querySelectorAll('.upcoming-movie-card');
+    upcomingMovieCards.forEach(card => {
+        card.addEventListener('click', function () {
+            const itemId = card.getAttribute('data-id');
+            showModal(itemId, estreno, 'upcoming');
+        });
+    });
+}
+
+// Listener para filtrar estrenos
+document.getElementById('estrenosSortOrder').addEventListener('change', function () {
+    const container = document.getElementById('upcoming-movies');
+    let estrenosItems = JSON.parse(container.getAttribute('data-items'));
+    const order = this.value;
+
+    estrenosItems.sort((a, b) => {
+        if (order === 'desc') {
+            return b.vote_average - a.vote_average;
+        } else {
+            return a.vote_average - b.vote_average;
+        }
+    });
+
+    displayUpcomingMovies(estrenosItems, 'movie');
+});
+
+
+// Obtener datos de series
+fetchDataAndDisplay(TV_URL, displaySeries, 'tv');
 
 // Mostrar series
 function displaySeries(series) {
@@ -166,9 +243,10 @@ function displaySeries(series) {
     });
 }
 
+//Mostrar review de series
 function showSeriesReview(seriesId, series) {
     const serie = series.find(s => s.id == seriesId);
-    
+
     if (!serie) {
         console.error(`Series with ID ${seriesId} not found.`);
         return;
@@ -177,6 +255,7 @@ function showSeriesReview(seriesId, series) {
     showModal(seriesId, series, 'series');
 }
 
+//Filtrar series
 document.getElementById('seriesSortOrder').addEventListener('change', function () {
     const seriesContainer = document.getElementById('recommended-series');
     let seriesItems = JSON.parse(seriesContainer.getAttribute('data-items'));
@@ -200,6 +279,7 @@ function displayUpcomingMovies(movies) {
     let upcomingMoviesHTML = '';
 
     movies.forEach(movie => {
+        // Puedes filtrar por género de terror aquí si es necesario
         upcomingMoviesHTML += `
             <div class="upcoming-movie-card card" data-id="${movie.id}">
                 <div class="card-inner">
@@ -220,6 +300,7 @@ function displayUpcomingMovies(movies) {
 fetchDataAndDisplay(TV_URL, displaySeries, 'tv');
 
 //mostrar modal
+
 function showModal(itemId, items, type) {
     const item = items.find(i => i.id == itemId);
     if (!item) {
@@ -227,30 +308,47 @@ function showModal(itemId, items, type) {
         return;
     }
 
-    const modalTitle = document.getElementById(`${type}ModalLabel`);
-    const modalReview = document.getElementById(`${type}Review`);
+    let modalTitle, modalReview, modalId;
 
-    modalTitle.textContent = item.title || item.name || 'Unknown Title';
-    modalReview.textContent = item.overview || `No hay review disponible para este ${type === 'movie' ? 'película' : 'serie'}.`;
-    //constructor boton favoritos
-    const favoritosBtn = document.createElement('button');
-    favoritosBtn.textContent = 'Agregar a Favoritos';
-    favoritosBtn.classList.add('btn', 'btn-danger');
-    favoritosBtn.addEventListener('click', () => AgregarAFavoritos(item));
+    if (type === 'movie' || type === 'upcoming') {
+        modalTitle = document.getElementById('movieModalLabel');
+        modalReview = document.getElementById('movieReview');
+        modalId = 'movieModal';
+    } else if (type === 'series') {
+        modalTitle = document.getElementById('seriesModalLabel');
+        modalReview = document.getElementById('seriesReview');
+        modalId = 'seriesModal';
+    }
 
-    const saltoDeLinea = document.createElement('br');
-    modalReview.appendChild(saltoDeLinea);
+    if (modalTitle && modalReview) {
+        modalTitle.textContent = item.title || item.name || 'Unknown Title';
+        
+        // Limpiar contenido previo y agregar overview
+        modalReview.innerHTML = item.overview || `No hay review disponible para esta ${type}.`;
 
-    modalReview.appendChild(favoritosBtn);
+        // Constructor de boton favoritos
+        const favoritosBtn = document.createElement('button');
+        favoritosBtn.textContent = 'Agregar a Favoritos';
+        favoritosBtn.classList.add('btn', 'btn-danger');
+        favoritosBtn.addEventListener('click', () => AgregarAFavoritos(item));
 
-    const modal = new bootstrap.Modal(document.getElementById(`${type}Modal`));
-    modal.show();
+        // Añadir salto de línea y boton a modalReview
+        const saltoDeLinea = document.createElement('br');
+        modalReview.appendChild(saltoDeLinea);
+        modalReview.appendChild(favoritosBtn);
+
+        // Mostrar modal
+        const modal = new bootstrap.Modal(document.getElementById(modalId));
+        modal.show();
+    } else {
+        console.error('Elementos del modal no encontrados');
+    }
 }
 
 
 // interacciones
 
-// agregar a favoritos
+// Agregar a favoritos
 function AgregarAFavoritos(item) {
     let favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
     if (favoritos.some(fav => fav.id === item.id)) {
@@ -262,7 +360,7 @@ function AgregarAFavoritos(item) {
     alert('¡Ítem agregado a favoritos!');
 }
 
-// mostrar favoritos
+// Mostrar favoritos
 document.getElementById('showFavoritos').addEventListener('click', function () {
     const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
     let htmlContent = '';
